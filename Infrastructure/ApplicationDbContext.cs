@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LivrariaJabutiAPI.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
