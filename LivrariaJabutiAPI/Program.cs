@@ -1,14 +1,20 @@
 using LivrariaJabutiAPI.Infrastructure;
+using LivrariaJabutiAPI.Web.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// DbConnection Region
 #region DbConnection
 string connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+#endregion
+
+// Add Domain Services Region
+#region DomainServices
+builder.Services.AddTransient<ErrorHandlerMiddleware>();
 #endregion
 
 builder.Services.AddControllers();
@@ -26,6 +32,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthentication();
 
