@@ -1,11 +1,13 @@
 ﻿using LivrariaJabutiAPI.Domain.Models.DTOs.Authentication;
 using LivrariaJabutiAPI.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace LivrariaJabutiAPI.Web.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class UserAuthController : ControllerBase
