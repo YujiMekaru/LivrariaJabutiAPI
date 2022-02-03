@@ -13,6 +13,7 @@ namespace LivrariaJabutiAPI.Domain.Models.Exceptions
 
         public ExceptionResponse(Exception exception)
         {
+            ErrorCode = 500;
             Message = exception.Message;
         }
     }
