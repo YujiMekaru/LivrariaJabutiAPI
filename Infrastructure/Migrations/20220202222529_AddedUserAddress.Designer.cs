@@ -3,6 +3,7 @@ using System;
 using LivrariaJabutiAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LivrariaJabutiAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220202222529_AddedUserAddress")]
+    partial class AddedUserAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,19 +66,19 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<string>("City")
-                                .HasColumnType("varchar(255)");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("District")
-                                .HasColumnType("varchar(255)");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("Number")
-                                .HasColumnType("varchar(255)");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("Street")
-                                .HasColumnType("varchar(255)");
+                                .HasColumnType("longtext");
 
                             b1.Property<string>("ZipCode")
-                                .HasColumnType("varchar(255)");
+                                .HasColumnType("longtext");
 
                             b1.HasKey("UserId");
 

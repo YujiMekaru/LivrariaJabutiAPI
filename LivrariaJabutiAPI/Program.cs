@@ -1,7 +1,12 @@
 using LivrariaJabutiAPI.Infrastructure;
+using LivrariaJabutiAPI.Service.Impl;
+using LivrariaJabutiAPI.Service.Interfaces;
 using LivrariaJabutiAPI.Web.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +17,35 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 #endregion
 
-// Add Domain Services Region
-#region DomainServices
+// Add Middlewares Region
+#region Middlewares
 builder.Services.AddTransient<ErrorHandlerMiddleware>();
+#endregion
+
+// Authentication and Authorization Region
+#region Auth
+builder.Services.AddTransient<IUserAuthService, UserAuthService>();
+builder.Services.AddTransient<ITokenService, TokenService>();
+
+var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("Secret"));
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
 #endregion
 
 builder.Services.AddControllers();
@@ -36,6 +67,8 @@ app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
