@@ -3,6 +3,7 @@ using LivrariaJabutiAPI.Domain.Models.DTOs.Authentication;
 using LivrariaJabutiAPI.Infrastructure;
 using LivrariaJabutiAPI.Service.Extensions;
 using LivrariaJabutiAPI.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace LivrariaJabutiAPI.Service.Impl
             _ctx = ctx;
         }
 
-        public async Task Register(UserRegisterRequestDTO registerRequest, CancellationToken ct)
+        public async Task<UserResponseDTO> Register(UserRegisterRequestDTO registerRequest, CancellationToken ct)
         {
             var newUser = new User
             {
@@ -32,10 +33,10 @@ namespace LivrariaJabutiAPI.Service.Impl
                 Address = registerRequest.Address
             };
 
-            if (_ctx.Users.Any(u => u.CPF == newUser.CPF))
+            if (await _ctx.Users.AnyAsync(u => u.CPF == newUser.CPF, ct))
                 throw new Exception("CPF digitado já está em uso");
 
-            if (_ctx.Users.Any(u => u.Email == newUser.Email))
+            if (await _ctx.Users.AnyAsync(u => u.Email == newUser.Email, ct))
                 throw new Exception("Email digitado já está em uso");
 
             // TODO : VALIDATE FIELDS
@@ -44,14 +45,18 @@ namespace LivrariaJabutiAPI.Service.Impl
 
             await _ctx.SaveChangesAsync(ct);
 
-            // TODO : RETURN USER DETAILS
+            return new UserResponseDTO
+            {
+                Email = newUser.Email,
+                Name = newUser.Name
+            };
         }
 
         public async Task<UserResponseDTO> Login(UserLoginRequestDTO loginRequest, CancellationToken ct = default)
         {
             var hashPass = loginRequest.Password.ToMD5();
             var email = loginRequest.Email.ToUpper();
-            var user = _ctx.Users.FirstOrDefault(u => u.Email == loginRequest.Email && u.Password == hashPass);
+            var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Email == loginRequest.Email && u.Password == hashPass, ct);
             
             if (user is null)
                 throw new Exception("Usuário não encontrado ou senha inválida.");

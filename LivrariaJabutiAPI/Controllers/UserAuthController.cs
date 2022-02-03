@@ -19,8 +19,8 @@ namespace LivrariaJabutiAPI.Web.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequestDTO registerRequest, CancellationToken ct = default)
         {
-            await _userAuthService.Register(registerRequest, ct);
-            return Ok();
+            var response = await _userAuthService.Register(registerRequest, ct);
+            return Ok(response);
         }
 
         [HttpPost]
