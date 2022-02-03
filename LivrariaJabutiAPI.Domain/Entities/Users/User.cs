@@ -21,5 +21,7 @@ namespace LivrariaJabutiAPI.Domain.Entities.Users
         public DateOnly? BirthDate { get; set; }
         [Required]
         public string? Password { get; set; }
+        [Required]
+        public UserAddress? Address { get; set; }
     }
 }

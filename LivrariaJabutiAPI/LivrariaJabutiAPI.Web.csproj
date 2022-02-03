@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\LivrariaJabutiAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\LivrariaJabutiAPI.Service\LivrariaJabutiAPI.Service.csproj" />
   </ItemGroup>
 
 </Project>

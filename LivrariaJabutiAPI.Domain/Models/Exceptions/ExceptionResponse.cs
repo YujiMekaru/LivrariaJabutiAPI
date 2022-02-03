@@ -8,12 +8,13 @@ namespace LivrariaJabutiAPI.Domain.Models.Exceptions
 {
     public class ExceptionResponse 
     {
-        public int ErrorCode { get; private set; }
+        public int StatusCode { get; private set; }
         public string? Source { get; private set; } = String.Empty;
         public string? Message { get; private set; } = String.Empty;
 
         public ExceptionResponse(Exception exception)
         {
+            StatusCode = 500;
             Source = exception.Source;
             Message = exception.Message;
         }

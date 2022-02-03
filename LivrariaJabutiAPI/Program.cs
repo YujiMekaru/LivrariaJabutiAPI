@@ -1,4 +1,6 @@
 using LivrariaJabutiAPI.Infrastructure;
+using LivrariaJabutiAPI.Service.Impl;
+using LivrariaJabutiAPI.Service.Interfaces;
 using LivrariaJabutiAPI.Web.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,7 @@ options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add Domain Services Region
 #region DomainServices
+builder.Services.AddTransient<IUserAuthService, UserAuthService>();
 builder.Services.AddTransient<ErrorHandlerMiddleware>();
 #endregion
 

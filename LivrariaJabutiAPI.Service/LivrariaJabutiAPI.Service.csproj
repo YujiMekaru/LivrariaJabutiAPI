@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\LivrariaJabutiAPI.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
