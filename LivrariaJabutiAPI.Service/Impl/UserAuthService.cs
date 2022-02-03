@@ -15,13 +15,15 @@ namespace LivrariaJabutiAPI.Service.Impl
     public class UserAuthService : IUserAuthService
     {
         private readonly ApplicationDbContext _ctx;
+        private readonly ITokenService _tokenService;
 
-        public UserAuthService(ApplicationDbContext ctx)
+        public UserAuthService(ApplicationDbContext ctx, ITokenService tokenService)
         {
             _ctx = ctx;
+            _tokenService = tokenService;
         }
 
-        public async Task<UserResponseDTO> Register(UserRegisterRequestDTO registerRequest, CancellationToken ct)
+        public async Task<UserAuthenticatedDTO> Register(UserRegisterRequestDTO registerRequest, CancellationToken ct)
         {
             var newUser = new User
             {
@@ -45,14 +47,13 @@ namespace LivrariaJabutiAPI.Service.Impl
 
             await _ctx.SaveChangesAsync(ct);
 
-            return new UserResponseDTO
+            return new UserAuthenticatedDTO
             {
-                Email = newUser.Email,
-                Name = newUser.Name
+                Token = _tokenService.GenerateToken(newUser)
             };
         }
 
-        public async Task<UserResponseDTO> Login(UserLoginRequestDTO loginRequest, CancellationToken ct = default)
+        public async Task<UserAuthenticatedDTO> Login(UserLoginRequestDTO loginRequest, CancellationToken ct = default)
         {
             var hashPass = loginRequest.Password.ToMD5();
             var email = loginRequest.Email.ToUpper();
@@ -61,10 +62,9 @@ namespace LivrariaJabutiAPI.Service.Impl
             if (user is null)
                 throw new Exception("Usuário não encontrado ou senha inválida.");
 
-            return new UserResponseDTO
+            return new UserAuthenticatedDTO
             {
-                Email = user.Email,
-                Name = user.Name
+                Token = _tokenService.GenerateToken(user)
             };
 
         }

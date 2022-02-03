@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace LivrariaJabutiAPI.Domain.Models.DTOs.Authentication
 {
-    public class UserResponseDTO
+    public class UserAuthenticatedDTO
     {
-        public string? Name { get; set; }
-        public string? Email { get; set; }
+        public string Token { get; set; } = String.Empty;
     }
 }

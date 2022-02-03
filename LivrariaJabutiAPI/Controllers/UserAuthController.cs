@@ -2,6 +2,7 @@
 using LivrariaJabutiAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace LivrariaJabutiAPI.Web.Controllers
 {
@@ -16,6 +17,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(UserAuthenticatedDTO),200)]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequestDTO registerRequest, CancellationToken ct = default)
         {
@@ -24,6 +26,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(UserAuthenticatedDTO), 200)]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequestDTO loginRequest, CancellationToken ct = default)
         {
