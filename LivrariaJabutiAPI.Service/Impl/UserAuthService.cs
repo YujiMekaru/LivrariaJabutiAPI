@@ -32,7 +32,8 @@ namespace LivrariaJabutiAPI.Service.Impl
                 Email = registerRequest.Email?.ToLower(),
                 BirthDate = registerRequest.BirthDate.ToDateOnly(),
                 Password = registerRequest.Password.ToMD5(),
-                Address = registerRequest.Address
+                Address = registerRequest.Address,
+                Role = UserRoleEnum.Customer
             };
 
             if (await _ctx.Users.AnyAsync(u => u.CPF == newUser.CPF, ct))
