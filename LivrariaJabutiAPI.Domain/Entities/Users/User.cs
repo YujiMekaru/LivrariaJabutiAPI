@@ -23,5 +23,7 @@ namespace LivrariaJabutiAPI.Domain.Entities.Users
         public string? Password { get; set; }
         [Required]
         public UserAddress? Address { get; set; }
+        [Required]
+        public UserRoleEnum? Role { get; set; }
     }
 }
