@@ -25,8 +25,8 @@ namespace LivrariaJabutiAPI.Service.Impl
             var newUser = new User
             {
                 Name = registerRequest.Name,
-                CPF = registerRequest.CPF,
-                Email = registerRequest.Email,
+                CPF = registerRequest.CPF?.ToUpper(),
+                Email = registerRequest.Email?.ToLower(),
                 BirthDate = registerRequest.BirthDate.ToDateOnly(),
                 Password = registerRequest.Password.ToMD5(),
                 Address = registerRequest.Address
@@ -46,5 +46,24 @@ namespace LivrariaJabutiAPI.Service.Impl
 
             // TODO : RETURN USER DETAILS
         }
+
+        public async Task<UserResponseDTO> Login(UserLoginRequestDTO loginRequest, CancellationToken ct = default)
+        {
+            var hashPass = loginRequest.Password.ToMD5();
+            var email = loginRequest.Email.ToUpper();
+            var user = _ctx.Users.FirstOrDefault(u => u.Email == loginRequest.Email && u.Password == hashPass);
+            
+            if (user is null)
+                throw new Exception("Usuário não encontrado ou senha inválida.");
+
+            return new UserResponseDTO
+            {
+                Email = user.Email,
+                Name = user.Name
+            };
+
+        }
+
+
     }
 }

@@ -10,5 +10,6 @@ namespace LivrariaJabutiAPI.Service.Interfaces
     public interface IUserAuthService
     {
         public Task Register(UserRegisterRequestDTO registerRequest, CancellationToken ct = default);
+        public Task<UserResponseDTO> Login(UserLoginRequestDTO loginRequest, CancellationToken ct = default);
     }
 }

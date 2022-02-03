@@ -23,6 +23,14 @@ namespace LivrariaJabutiAPI.Web.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequestDTO loginRequest, CancellationToken ct = default)
+        {
+            var response = await _userAuthService.Login(loginRequest, ct);
+            return Ok(response);
+        }
+
 
 
     }
