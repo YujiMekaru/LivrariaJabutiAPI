@@ -18,23 +18,10 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll(CancellationToken ct = default)
-        {
-            var response = await _userService.GetAll(ct);
-            return Ok(response);
-        }
 
-        [HttpGet]
-        [Route("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetById(int id, CancellationToken ct = default)
-        {
-            var response = await _userService.GetDetailsById(id, ct);
-            return Ok(response);
-        }
-
+        /// <summary>
+        /// Gets the authenticated user details
+        /// </summary>
         [HttpGet]
         [Route("details")]
         [Authorize]
@@ -53,6 +40,9 @@ namespace LivrariaJabutiAPI.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Updates the authenticated user
+        /// </summary>
         [HttpPut]
         [Authorize]
         public async Task<IActionResult> Update(UserEditRequestDTO request, CancellationToken ct = default)
@@ -70,6 +60,45 @@ namespace LivrariaJabutiAPI.Web.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// ADMIN - Gets all users.
+        /// </summary>
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAll(CancellationToken ct = default)
+        {
+            var response = await _userService.GetAll(ct);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// ADMIN - Gets a user by id.
+        /// </summary>
+        [HttpGet]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetById(int id, CancellationToken ct = default)
+        {
+            var response = await _userService.GetDetailsById(id, ct);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// ADMIN - Updates a user by their id.
+        /// </summary>
+        [HttpPut]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Update(int id, UserEditRequestDTO request, CancellationToken ct = default)
+        {
+            var response = await _userService.Update(id, request, ct);
+
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// ADMIN - Deletes a user by their id.
+        /// </summary>
         [HttpDelete]
         [Route("{id}")]
         [Authorize(Roles = "Admin")]
