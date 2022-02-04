@@ -12,5 +12,7 @@ namespace LivrariaJabutiAPI.Service.Interfaces
     {
         public Task<ICollection<UserResponseDTO>> GetAll(CancellationToken ct = default);
         public Task<UserDetailsDTO> GetDetailsById(int id, CancellationToken ct = default);
+        public Task<UserDetailsDTO> Update(int id, UserEditRequestDTO request, CancellationToken ct = default);
+        public Task Delete(int id, CancellationToken ct = default);
     }
 }

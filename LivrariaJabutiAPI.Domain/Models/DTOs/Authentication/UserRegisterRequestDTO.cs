@@ -14,6 +14,6 @@ namespace LivrariaJabutiAPI.Domain.Models.DTOs.Authentication
         public string Email { get; set; } = String.Empty;
         public string BirthDate { get; set; } = String.Empty;
         public string Password { get; set; } = String.Empty;
-        public UserAddress? Address { get; set; } 
+        public UserAddress Address { get; set; } = new UserAddress();
     }
 }

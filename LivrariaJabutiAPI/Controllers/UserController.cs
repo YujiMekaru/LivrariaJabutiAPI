@@ -1,4 +1,5 @@
-﻿using LivrariaJabutiAPI.Service.Interfaces;
+﻿using LivrariaJabutiAPI.Domain.Models.DTOs.User;
+using LivrariaJabutiAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,32 @@ namespace LivrariaJabutiAPI.Web.Controllers
             var response = await _userService.GetDetailsById(int.Parse(id), ct);
 
             return Ok(response);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update(UserEditRequestDTO request, CancellationToken ct = default)
+        {
+            if (User.Identity == null)
+                throw new Exception("Could not verify user Identity.");
+
+            var id = User.Identity.Name;
+
+            if (id == null)
+                throw new Exception("Could not verify user Id");
+
+            var response = await _userService.Update(int.Parse(id), request, ct);
+
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
+        {
+            await _userService.Delete(id, ct);
+            return Ok();
         }
     }
 }
