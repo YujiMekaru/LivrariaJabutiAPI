@@ -59,6 +59,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+// Swagger Configuration
+#region Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -92,6 +94,7 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
+#endregion
 
 var app = builder.Build();
 
