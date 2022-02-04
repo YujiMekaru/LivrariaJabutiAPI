@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LivrariaJabutiAPI.Domain.Models.DTOs.Authentication
+namespace LivrariaJabutiAPI.Domain.Models.DTOs.User
 {
-    public class UserRegisterRequestDTO
+    public class UserDetailsDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public string CPF { get; set; } = String.Empty;
         public string Email { get; set; } = String.Empty;
         public string BirthDate { get; set; } = String.Empty;
-        public string Password { get; set; } = String.Empty;
-        public UserAddress? Address { get; set; } 
+        public UserAddress Address { get; set; } = new UserAddress();
+        public string Role { get; set; } = String.Empty;
     }
 }

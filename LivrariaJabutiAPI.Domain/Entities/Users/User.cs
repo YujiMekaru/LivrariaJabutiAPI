@@ -12,18 +12,18 @@ namespace LivrariaJabutiAPI.Domain.Entities.Users
     public class User : Entity
     {
         [Column(TypeName = "varchar(255)"), Required]
-        public string? Name { get; set; }
+        public string Name { get; set; } = String.Empty;
         [Column(TypeName = "varchar(255)"), Required]
-        public string? CPF { get; set; }
+        public string CPF { get; set; } = String.Empty;
         [Column(TypeName = "varchar(255)"), Required]
-        public string? Email { get; set; }
+        public string Email { get; set; } = String.Empty;
         [Required]
-        public DateOnly? BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
         [Required]
-        public string? Password { get; set; }
+        public string Password { get; set; } = String.Empty;
         [Required]
-        public UserAddress? Address { get; set; }
+        public UserAddress Address { get; set; } = new UserAddress();
         [Required]
-        public UserRoleEnum? Role { get; set; }
+        public UserRoleEnum Role { get; set; } = UserRoleEnum.Customer;
     }
 }
