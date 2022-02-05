@@ -1,4 +1,5 @@
 ﻿using LivrariaJabutiAPI.Domain.Entities;
+using LivrariaJabutiAPI.Domain.Entities.Base;
 using LivrariaJabutiAPI.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,34 @@ namespace LivrariaJabutiAPI.Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().Property(u => u.Role).HasConversion(new EnumToStringConverter<UserRoleEnum>());
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            OnBeforeSaving();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            OnBeforeSaving();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void OnBeforeSaving()
+        {
+            foreach (var entry in ChangeTracker.Entries<Entity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedAt = entry.Entity.LastUpdatedAt = DateTime.UtcNow;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.LastUpdatedAt = DateTime.UtcNow;
+                        break;
+                }
+            }
         }
 
     }
