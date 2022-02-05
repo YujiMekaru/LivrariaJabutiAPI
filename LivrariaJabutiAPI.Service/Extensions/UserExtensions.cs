@@ -18,7 +18,8 @@ namespace LivrariaJabutiAPI.Service.Extensions
             if (user.Name == "" || user.Name == String.Empty)
                 throw new Exception("Invalid Name");
 
-            var validEmailRegex = new Regex(@"^[a - zA - Z0 - 9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",RegexOptions.Compiled);
+           
+            Regex validEmailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
 
             if (!validEmailRegex.IsMatch(user.Email))
                 throw new Exception("Invalid Email Format");
