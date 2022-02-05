@@ -28,8 +28,8 @@ namespace LivrariaJabutiAPI.Service.Impl
             var newUser = new User
             {
                 Name = registerRequest.Name,
-                CPF = registerRequest.CPF?.ToUpper(),
-                Email = registerRequest.Email?.ToLower(),
+                CPF = registerRequest.CPF.ToUpper(),
+                Email = registerRequest.Email.ToLower(),
                 BirthDate = registerRequest.BirthDate.ToDateOnly(),
                 Password = registerRequest.Password.ToMD5(),
                 Address = registerRequest.Address,

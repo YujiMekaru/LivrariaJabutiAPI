@@ -57,12 +57,12 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Users.User", b =>
                 {
-                    b.OwnsOne("LivrariaJabutiAPI.Domain.Entities.Users.UserAddress", "Address", b1 =>
+                    b.OwnsOne("LivrariaJabutiAPI.Domain.Entities.Users.User.Address#LivrariaJabutiAPI.Domain.Entities.Users.UserAddress", "Address", b1 =>
                         {
                             b1.Property<int>("UserId")
                                 .HasColumnType("int");
@@ -84,7 +84,7 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
