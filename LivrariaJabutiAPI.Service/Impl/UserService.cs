@@ -81,6 +81,8 @@ namespace LivrariaJabutiAPI.Service.Impl
             if (request.Password != null)
                 user.Password = request.Password.ToMD5();
 
+            user.Validate();
+
             await _ctx.SaveChangesAsync(ct);
 
             return await GetDetailsById(user.Id, ct);

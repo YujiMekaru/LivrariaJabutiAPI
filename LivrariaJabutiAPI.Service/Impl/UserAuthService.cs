@@ -43,6 +43,7 @@ namespace LivrariaJabutiAPI.Service.Impl
                 throw new Exception("Email digitado já está em uso");
 
             // TODO : VALIDATE FIELDS
+            newUser.Validate();
             
             await _ctx.Users.AddAsync(newUser, ct);
 
