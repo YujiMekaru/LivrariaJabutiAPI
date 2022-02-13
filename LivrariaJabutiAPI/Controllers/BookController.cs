@@ -31,9 +31,9 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(BookInsertDTO insertBook, CancellationToken ct = default)
+        public async Task<IActionResult> Save(IFormFile file, BookInsertDTO insertBook, CancellationToken ct = default)
         {
-            var response = await _bookService.Save(insertBook, ct);
+            var response = await _bookService.Save(file, insertBook, ct);
             return Ok(response);
         }
 

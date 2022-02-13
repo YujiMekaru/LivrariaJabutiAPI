@@ -56,6 +56,7 @@ builder.Services.AddAuthentication(x =>
 #region DomainServices
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IFileStoreService, FileStoreService>();
 #endregion
 
 builder.Services.AddControllers();
@@ -99,8 +100,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 #endregion
 
-// Mapping
-#region Mapping Configuration
+// Mapping Configuration
+#region Mapping
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new MappingProfile());

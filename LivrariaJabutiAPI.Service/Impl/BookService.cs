@@ -3,6 +3,7 @@ using LivrariaJabutiAPI.Domain.Entities.Book;
 using LivrariaJabutiAPI.Domain.Models.DTOs.Book;
 using LivrariaJabutiAPI.Infrastructure;
 using LivrariaJabutiAPI.Service.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace LivrariaJabutiAPI.Service.Impl
     {
         private readonly ApplicationDbContext _ctx;
         private readonly IMapper _mapper;
+        private readonly IFileStoreService _fileService;
 
-        public BookService(ApplicationDbContext ctx, IMapper mapper)
+        public BookService(ApplicationDbContext ctx, IMapper mapper, IFileStoreService fileService)
         {
             _ctx = ctx;
             _mapper = mapper;
-        }
+            _fileService = fileService;
+         }
 
         public async Task<ICollection<BookResponseDTO>> GetAll(CancellationToken ct)
         {
@@ -47,9 +50,13 @@ namespace LivrariaJabutiAPI.Service.Impl
             return model;
         }
 
-        public async Task<BookResponseDTO> Save(BookInsertDTO bookInsert, CancellationToken ct)
+        public async Task<BookResponseDTO> Save(IFormFile file, BookInsertDTO bookInsert, CancellationToken ct)
         {
+            var storedFile = await _fileService.StoreDocumentAsync(file, ct);
+            
             var book = _mapper.Map<Book>(bookInsert);
+            book.ImageUrl = storedFile.DocumentUrl;
+
             await _ctx.Books.AddAsync(book, ct);
             await _ctx.SaveChangesAsync(ct);
 

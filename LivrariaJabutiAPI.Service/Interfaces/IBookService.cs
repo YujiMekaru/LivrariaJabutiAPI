@@ -1,4 +1,5 @@
 ﻿using LivrariaJabutiAPI.Domain.Models.DTOs.Book;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace LivrariaJabutiAPI.Service.Interfaces
     {
         Task<BookResponseDTO> GetById(int id, CancellationToken ct);
         Task<ICollection<BookResponseDTO>> GetAll(CancellationToken ct);
-        Task<BookResponseDTO> Save(BookInsertDTO bookInsert, CancellationToken ct);
+        Task<BookResponseDTO> Save(IFormFile file, BookInsertDTO bookInsert, CancellationToken ct);
         Task Delete(int id, CancellationToken ct);
         Task<BookResponseDTO> Update(int id, BookUpdateDTO bookUpdate, CancellationToken ct);
     }
