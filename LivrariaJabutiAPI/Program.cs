@@ -1,3 +1,5 @@
+using AutoMapper;
+using LivrariaJabutiAPI.Domain.Models.Mapping;
 using LivrariaJabutiAPI.Infrastructure;
 using LivrariaJabutiAPI.Service.Impl;
 using LivrariaJabutiAPI.Service.Interfaces;
@@ -53,6 +55,7 @@ builder.Services.AddAuthentication(x =>
 // Add Domain Services Region
 #region DomainServices
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IBookService, BookService>();
 #endregion
 
 builder.Services.AddControllers();
@@ -94,6 +97,16 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
+#endregion
+
+// Mapping
+#region Mapping Configuration
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 #endregion
 
 var app = builder.Build();

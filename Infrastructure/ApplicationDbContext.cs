@@ -1,5 +1,6 @@
 ﻿using LivrariaJabutiAPI.Domain.Entities;
 using LivrariaJabutiAPI.Domain.Entities.Base;
+using LivrariaJabutiAPI.Domain.Entities.Book;
 using LivrariaJabutiAPI.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace LivrariaJabutiAPI.Infrastructure
     public class ApplicationDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
