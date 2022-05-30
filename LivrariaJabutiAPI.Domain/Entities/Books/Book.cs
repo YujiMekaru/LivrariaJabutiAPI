@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LivrariaJabutiAPI.Domain.Entities.Book
+namespace LivrariaJabutiAPI.Domain.Entities.Books
 {
     public class Book : Entity
     {

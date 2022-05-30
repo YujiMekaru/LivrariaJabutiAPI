@@ -58,6 +58,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IFileStoreService, FileStoreService>();
+builder.Services.AddTransient<ICartService, CartService>();
 #endregion
 
 builder.Services.AddControllers();

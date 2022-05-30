@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LivrariaJabutiAPI.Domain.Entities.Book;
+using LivrariaJabutiAPI.Domain.Entities.Books;
 using LivrariaJabutiAPI.Domain.Models.DTOs.Book;
 using System;
 using System.Collections.Generic;

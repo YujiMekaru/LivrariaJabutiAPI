@@ -3,6 +3,7 @@ using System;
 using LivrariaJabutiAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LivrariaJabutiAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220529000054_AddedShoppingCartItem")]
+    partial class AddedShoppingCartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,11 +106,16 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
                     b.Property<int>("Qty")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
                     b.HasIndex("CartId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CartItems");
                 });
@@ -156,7 +163,7 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.Cart", b =>
                 {
                     b.HasOne("LivrariaJabutiAPI.Domain.Entities.Users.User", "User")
-                        .WithMany("Carts")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -178,9 +185,17 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LivrariaJabutiAPI.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Book");
 
                     b.Navigation("Cart");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Users.User", b =>
@@ -220,11 +235,6 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.Cart", b =>
                 {
                     b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Users.User", b =>
-                {
-                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }

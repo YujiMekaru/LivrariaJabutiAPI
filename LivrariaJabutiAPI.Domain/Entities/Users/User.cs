@@ -1,4 +1,5 @@
 ﻿using LivrariaJabutiAPI.Domain.Entities.Base;
+using LivrariaJabutiAPI.Domain.Entities.Carts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,5 +26,6 @@ namespace LivrariaJabutiAPI.Domain.Entities.Users
         public UserAddress Address { get; set; } = new UserAddress();
         [Required]
         public UserRoleEnum Role { get; set; } = UserRoleEnum.Customer;
+        public virtual IList<Cart> Carts { get; set; } = new List<Cart>();
     }
 }
