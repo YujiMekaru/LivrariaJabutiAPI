@@ -68,7 +68,11 @@ builder.Services.AddEndpointsApiExplorer();
 #region Swagger
 builder.Services.AddSwaggerGen(c =>
 {
+<<<<<<< HEAD
     //c.OperationFilter<SwaggerFileUploadFilter>();
+=======
+    c.OperationFilter<SwaggerFileUploadFilter>();
+>>>>>>> e1eab9ca9d474eef32609315b7140afe470a6335
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {

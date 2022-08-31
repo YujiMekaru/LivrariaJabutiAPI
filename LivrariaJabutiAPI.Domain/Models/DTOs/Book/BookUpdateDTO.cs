@@ -12,7 +12,6 @@ namespace LivrariaJabutiAPI.Domain.Models.DTOs.Book
         public float? Amount { get; set; }
         public string? Author { get; set; } 
         public string? Publisher { get; set; }
-        public string? ImageUrl { get; set; } 
         public bool? OnSale { get; set; }
     }
 }

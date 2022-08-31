@@ -1,5 +1,6 @@
 ﻿using LivrariaJabutiAPI.Domain.Models.DTOs.Book;
 using LivrariaJabutiAPI.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetBooks(CancellationToken ct = default)
         {
             var response = await _bookService.GetAll(ct);
@@ -23,6 +25,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> GetById(int id, CancellationToken ct = default)
         {
@@ -31,14 +34,21 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPost]
+<<<<<<< HEAD
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Save([FromForm]IFormFile file, [FromForm]BookInsertDTO insertBook, CancellationToken ct = default)
+=======
+        [Authorize(Roles = "Admin")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Save([FromForm]IFormFile file, [FromQuery]BookInsertDTO insertBook, CancellationToken ct = default)
+>>>>>>> e1eab9ca9d474eef32609315b7140afe470a6335
         {
             var response = await _bookService.Save(file, insertBook, ct);
             return Ok(response);
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
         {
@@ -47,10 +57,20 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route("{id}")]
         public async Task<IActionResult> Update(BookUpdateDTO updateBook, int id, CancellationToken ct = default)
         {
             var response = await _bookService.Update(id, updateBook, ct);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        [Route("{id}/update-image")]
+        public async Task<IActionResult> UpdateImage(IFormFile file, int id, CancellationToken ct = default)
+        {
+            var response = await _bookService.UpdateImage(id, file, ct);
             return Ok(response);
         }
     }

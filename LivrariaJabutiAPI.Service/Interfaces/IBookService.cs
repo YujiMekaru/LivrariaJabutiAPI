@@ -15,5 +15,6 @@ namespace LivrariaJabutiAPI.Service.Interfaces
         Task<BookResponseDTO> Save(IFormFile file, BookInsertDTO bookInsert, CancellationToken ct);
         Task Delete(int id, CancellationToken ct);
         Task<BookResponseDTO> Update(int id, BookUpdateDTO bookUpdate, CancellationToken ct);
+        Task<BookResponseDTO> UpdateImage(int id, IFormFile file, CancellationToken ct);
     }
 }

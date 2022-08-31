@@ -87,9 +87,6 @@ namespace LivrariaJabutiAPI.Service.Impl
             if (bookUpdate.Publisher != null)
                 book.Publisher = bookUpdate.Publisher;
 
-            if (bookUpdate.ImageUrl != null)
-                book.ImageUrl = bookUpdate.ImageUrl;
-
             if (bookUpdate.OnSale != null)
                 book.OnSale = bookUpdate.OnSale.Value;
 
@@ -97,6 +94,17 @@ namespace LivrariaJabutiAPI.Service.Impl
 
             return _mapper.Map<BookResponseDTO>(book);
 
+        }
+
+        public async Task<BookResponseDTO> UpdateImage (int id, IFormFile file, CancellationToken ct)
+        {
+            var book = await GetBook(id, ct);
+
+            var storedFile = await _fileService.StoreDocumentAsync(file, ct);
+            book.ImageUrl = storedFile.DocumentUrl;
+
+            await _ctx.SaveChangesAsync(ct);
+            return _mapper.Map<BookResponseDTO>(book);
         }
 
         private async Task<Book> GetBook(int id, CancellationToken ct)
