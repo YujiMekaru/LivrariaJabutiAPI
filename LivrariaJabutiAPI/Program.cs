@@ -4,6 +4,7 @@ using LivrariaJabutiAPI.Infrastructure;
 using LivrariaJabutiAPI.Service.Impl;
 using LivrariaJabutiAPI.Service.Interfaces;
 using LivrariaJabutiAPI.Web.Middlewares;
+using LivrariaJabutiAPI.Web.SwaggerOperationFilters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -67,6 +68,8 @@ builder.Services.AddEndpointsApiExplorer();
 #region Swagger
 builder.Services.AddSwaggerGen(c =>
 {
+    //c.OperationFilter<SwaggerFileUploadFilter>();
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -113,11 +116,11 @@ builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 

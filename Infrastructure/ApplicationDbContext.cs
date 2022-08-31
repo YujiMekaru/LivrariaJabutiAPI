@@ -17,6 +17,7 @@ namespace LivrariaJabutiAPI.Infrastructure
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
