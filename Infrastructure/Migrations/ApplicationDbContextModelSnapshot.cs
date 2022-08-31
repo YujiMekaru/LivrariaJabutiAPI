@@ -19,7 +19,7 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "6.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Books.Book", b =>
+            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Book.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,65 +55,21 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.Cart", b =>
-=======
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Book.Sale", b =>
->>>>>>> feature/book-endpoints
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-<<<<<<< HEAD
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("LastUpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.CartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-=======
                     b.Property<float>("Amount")
                         .HasColumnType("float");
->>>>>>> feature/book-endpoints
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("LastUpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("int");
-=======
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -126,19 +82,12 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                     b.Property<DateOnly>("SaleEndDate")
                         .HasColumnType("date");
->>>>>>> feature/book-endpoints
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
-<<<<<<< HEAD
-                    b.HasIndex("CartId");
-
-                    b.ToTable("CartItems");
-=======
-                    b.ToTable("Sales");
->>>>>>> feature/book-endpoints
+                    b.ToTable("Sales", (string)null);
                 });
 
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Users.User", b =>
@@ -178,52 +127,23 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.Cart", b =>
-                {
-                    b.HasOne("LivrariaJabutiAPI.Domain.Entities.Users.User", "User")
-                        .WithMany("Carts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.CartItem", b =>
-                {
-                    b.HasOne("LivrariaJabutiAPI.Domain.Entities.Books.Book", "Book")
-=======
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Book.Sale", b =>
                 {
                     b.HasOne("LivrariaJabutiAPI.Domain.Entities.Book.Book", "Book")
->>>>>>> feature/book-endpoints
                         .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< HEAD
-                    b.HasOne("LivrariaJabutiAPI.Domain.Entities.Carts.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Book");
-
-                    b.Navigation("Cart");
-=======
-                    b.Navigation("Book");
->>>>>>> feature/book-endpoints
                 });
 
             modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Users.User", b =>
                 {
-                    b.OwnsOne("LivrariaJabutiAPI.Domain.Entities.Users.UserAddress", "Address", b1 =>
+                    b.OwnsOne("LivrariaJabutiAPI.Domain.Entities.Users.User.Address#LivrariaJabutiAPI.Domain.Entities.Users.UserAddress", "Address", b1 =>
                         {
                             b1.Property<int>("UserId")
                                 .HasColumnType("int");
@@ -245,7 +165,7 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -253,16 +173,6 @@ namespace LivrariaJabutiAPI.Infrastructure.Migrations
 
                     b.Navigation("Address")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Carts.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
-            modelBuilder.Entity("LivrariaJabutiAPI.Domain.Entities.Users.User", b =>
-                {
-                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }
