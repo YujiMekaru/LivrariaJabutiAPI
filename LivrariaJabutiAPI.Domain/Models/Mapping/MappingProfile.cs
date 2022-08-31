@@ -15,6 +15,7 @@ namespace LivrariaJabutiAPI.Domain.Models.Mapping
         {
             CreateMap<Book, BookResponseDTO>();
             CreateMap<BookInsertDTO, Book>();
+            CreateMap<SaleInsertDTO, Sale>();
         }
     }
 }

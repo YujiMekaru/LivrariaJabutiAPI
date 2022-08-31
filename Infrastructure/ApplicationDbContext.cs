@@ -18,8 +18,12 @@ namespace LivrariaJabutiAPI.Infrastructure
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
+<<<<<<< HEAD
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+=======
+        public DbSet<Sale> Sales { get; set; }
+>>>>>>> feature/book-endpoints
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
