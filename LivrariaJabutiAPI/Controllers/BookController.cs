@@ -34,14 +34,9 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPost]
-<<<<<<< HEAD
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> Save([FromForm]IFormFile file, [FromForm]BookInsertDTO insertBook, CancellationToken ct = default)
-=======
         [Authorize(Roles = "Admin")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Save([FromForm]IFormFile file, [FromQuery]BookInsertDTO insertBook, CancellationToken ct = default)
->>>>>>> e1eab9ca9d474eef32609315b7140afe470a6335
         {
             var response = await _bookService.Save(file, insertBook, ct);
             return Ok(response);
