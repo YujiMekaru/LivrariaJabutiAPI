@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +61,8 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IFileStoreService, FileStoreService>();
 builder.Services.AddTransient<ICartService, CartService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 #endregion
 
 builder.Services.AddControllers();
