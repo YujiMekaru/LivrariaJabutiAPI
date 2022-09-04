@@ -20,7 +20,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
 
 
         /// <summary>
-        /// Gets the authenticated user details
+        /// Gets the authenticated user details.
         /// </summary>
         [HttpGet]
         [Route("details")]
