@@ -1,7 +1,9 @@
 ﻿using LivrariaJabutiAPI.Domain.Models.DTOs.Book;
 using LivrariaJabutiAPI.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace LivrariaJabutiAPI.Web.Controllers
 {
@@ -31,6 +33,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save([FromBody] SaleInsertDTO saleInsert, CancellationToken ct = default)
         {
             await _saleService.Save(saleInsert, ct);
@@ -38,6 +41,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("{id}")]
         public async Task<IActionResult> Delete(int id, CancellationToken ct = default)
         {
@@ -46,6 +50,7 @@ namespace LivrariaJabutiAPI.Web.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route("{id}")]
         public async Task<IActionResult> Update(SaleUpdateDTO updateBook, CancellationToken ct = default)
         {
